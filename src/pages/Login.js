@@ -1,22 +1,42 @@
 import React, { useState } from 'react';
 import { View, StyleSheet, Text, TextInput, TouchableOpacity, Image, Alert } from 'react-native';
-import api from '../services/api'
-import Logo from '../assets/logo.png'
+import api from '../services/api';
+import Logo from '../assets/logo.png';
 
 export default function Login({navigation}){
 
    const [login, setLogin] = useState('');
    const [senha, setSenha] = useState('');
-
+  //  let data = {
+  //   login: login,
+  //   senha: senha
+  //   }
+  //    console.log(data)
   async function PegarDados(){
+    const response = await api.post('/users',{
+      login,
+      senha
+    })
      
-      // if (login == api.login || senha == api.senha){
-      //   navigation.navigate('BemVindo')
-      //   console.log("user logado")
-      // }else{
-      //   
-      // }
-      navigation.navigate('BemVindo')
+      if(response.data === 'ok'){
+        navigation.navigate('BemVindo')
+      } else {
+        Alert.alert(
+          "Atenção",
+          response.data,
+          [
+            {
+              text: "Cancel",
+              onPress: () => console.log("Cancel Pressed"),
+              style: "cancel"
+            },
+            { text: "OK", onPress: () => console.log("OK Pressed") }
+          ],
+          { cancelable: false }
+        );
+      }
+    
+      
   }
   return (
   <View style ={styles.container}>
