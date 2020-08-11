@@ -1,15 +1,22 @@
 import React, { useState } from 'react';
-import { View, StyleSheet, Text, TextInput, TouchableOpacity, Image } from 'react-native';
-
+import { View, StyleSheet, Text, TextInput, TouchableOpacity, Image, Alert } from 'react-native';
+import api from '../services/api'
 import Logo from '../assets/logo.png'
 
-export default function Login(){
+export default function Login({navigation}){
 
    const [login, setLogin] = useState('');
    const [senha, setSenha] = useState('');
 
   async function PegarDados(){
-      console.log(login)
+     
+      // if (login == api.login || senha == api.senha){
+      //   navigation.navigate('BemVindo')
+      //   console.log("user logado")
+      // }else{
+      //   
+      // }
+      navigation.navigate('BemVindo')
   }
   return (
   <View style ={styles.container}>
@@ -31,6 +38,10 @@ export default function Login(){
         placeholder = "Senha"
         placeholderTextColor = "#999"
         secureTextEntry={true}
+        value = {senha}
+        onChangeText = {setSenha}
+
+
       />
 
       <TouchableOpacity onPress ={PegarDados} style = {styles.button}>
@@ -76,6 +87,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 5,
+  
   },
 
   buttonText: {
